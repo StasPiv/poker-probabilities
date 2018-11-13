@@ -1,0 +1,28 @@
+{
+    "name": "stas/poker-probabilities",
+    "license": "proprietary",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "PokerProbabilities\\": "src"
+        }
+    },
+    "require": {
+        "php": ">=5.3.9"
+    },
+    "require-dev": {
+
+    },
+    "scripts": {
+        "post-install-cmd": [
+        ],
+        "post-update-cmd": [
+        ]
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": null
+    }
+}

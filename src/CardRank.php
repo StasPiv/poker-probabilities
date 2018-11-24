@@ -36,4 +36,10 @@ class CardRank
     const KING = 13;
 
     const ACE = 14;
+
+    static public function getAll(): array
+    {
+        $oClass = new \ReflectionClass(__CLASS__);
+        return $oClass->getConstants();
+    }
 }

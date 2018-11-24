@@ -7,39 +7,47 @@
  */
 
 use PokerProbabilities\CardDeck;
-use PokerProbabilities\Checker;
+use PokerProbabilities\CardRank;
+use PokerProbabilities\Checker\BothRanksOrPairChecker;
+use PokerProbabilities\Checker\BothRanksRankChecker;
+use PokerProbabilities\Checker\OneOfRanksRankChecker;
+use PokerProbabilities\Checker\RankChecker;
+use PokerProbabilities\Checker\SpecificRankChecker;
+use PokerProbabilities\Checker\SuitChecker;
 use PokerProbabilities\Generator;
 
 require_once 'vendor/autoload.php';
 
 $deck = new CardDeck();
 
-//$pokerGame = new PokerGame($deck, 2);
-
-//echo Printer::printGame($pokerGame) . PHP_EOL;
-//echo Printer::printShortDeck($pokerGame->getDeck()) . PHP_EOL;
-
-//foreach ($pokerGame->getPlayers() as $player) {
-//    echo Printer::printShortCards($player->getPocketCards()) .
-//        ' pair: ' . (int)Checker::checkPair($player->getPocketCards()) .
-//        ' suit: ' . (int)Checker::checkSuit($player->getPocketCards()) . PHP_EOL;
-//}
+$pairChecker = new RankChecker();
+$acesChecker = new SpecificRankChecker(CardRank::ACE);
+$kingOrAceOrQueenChecker = new OneOfRanksRankChecker([CardRank::ACE, CardRank::KING, CardRank::QUEEN]);
+$kingAndAceChecker = new BothRanksRankChecker([CardRank::ACE, CardRank::KING]);
+$topCardsChecker = new BothRanksOrPairChecker([CardRank::ACE, CardRank::KING, CardRank::QUEEN]);
+$suitChecker = new SuitChecker();
 
 $pairCount = 0;
 $suitCount = 0;
 $pairAcesCount = 0;
-$aceKingCount = 0;
+$kingOrAceOrQueenCount = 0;
+$kingAndAceCount = 0;
+$topCardsCount = 0;
 $hands = 100000;
 
 for ($i = 0; $i < $hands; $i++) {
-    $cards = Generator::generateRandomPair();
-    $pairCount += (int)Checker::checkPair($cards);
-    $pairAcesCount += (int)Checker::checkPairAces($cards);
-    $aceKingCount += (int)Checker::checkAceKing($cards);
-    $suitCount += (int)Checker::checkSuit($cards);
+    $randomPair = Generator::generateRandomPair();
+    $pairCount += $pairChecker->check($randomPair);
+    $pairAcesCount += $acesChecker->check($randomPair);
+    $kingOrAceOrQueenCount += $kingOrAceOrQueenChecker->check($randomPair);
+    $kingAndAceCount += $kingAndAceChecker->check($randomPair);
+    $topCardsCount += $topCardsChecker->check($randomPair);
+    $suitCount += $suitChecker->check($randomPair);
 }
 
 echo 'Pairs probability = ' . 100 * ($pairCount / $hands). PHP_EOL;
 echo 'Pair Aces probability = ' . 100 * ($pairAcesCount / $hands) . PHP_EOL;
-echo 'Ace King probability = ' . 100 * ($aceKingCount / $hands) . PHP_EOL;
+echo 'King Or Ace Or Queen probability = ' . 100 * ($kingOrAceOrQueenCount / $hands) . PHP_EOL;
+echo 'King And Ace probability = ' . 100 * ($kingAndAceCount / $hands) . PHP_EOL;
+echo 'Top cards (ace,king,queen) probability = ' . 100 * ($topCardsCount / $hands) . PHP_EOL;
 echo 'Suit probability = ' . 100 * ($suitCount / $hands). PHP_EOL;

@@ -9,14 +9,16 @@
 namespace PokerProbabilities;
 
 
+use PokerProbabilities\Checkable\RandomPair;
+
 class Generator
 {
     public static function generateRandomPair()
     {
         $deck = new CardDeck();
-        return [
+        return new RandomPair([
             $deck->getRandomCard(),
             $deck->getRandomCard()
-        ];
+        ]);
     }
 }

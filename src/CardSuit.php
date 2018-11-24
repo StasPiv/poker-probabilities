@@ -18,4 +18,10 @@ class CardSuit
     const CLUB = 2;
 
     const SPADE = 3;
+
+    static public function getAll(): array
+    {
+        $oClass = new \ReflectionClass(__CLASS__);
+        return $oClass->getConstants();
+    }
 }

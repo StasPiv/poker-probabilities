@@ -11,7 +11,7 @@ namespace PokerProbabilities\Checker;
 
 use PokerProbabilities\CardRank;
 
-class SpecificRankChecker extends RankChecker
+class SpecificRankChecker extends PairChecker
 {
     protected $desiredRank;
 

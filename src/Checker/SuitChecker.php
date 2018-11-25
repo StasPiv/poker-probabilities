@@ -12,7 +12,7 @@ namespace PokerProbabilities\Checker;
 use PokerProbabilities\Card;
 use PokerProbabilities\Checkable\CheckableInterface;
 
-class SuitChecker implements CheckerInterface
+class SuitChecker implements PairCheckerInterface
 {
     public function check(CheckableInterface $checkable)
     {

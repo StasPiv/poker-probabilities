@@ -11,7 +11,7 @@ namespace PokerProbabilities\Checker;
 use PokerProbabilities\CardRank;
 use PokerProbabilities\Checkable\CheckableInterface;
 
-class RankChecker implements CheckerInterface
+class PairChecker implements PairCheckerInterface
 {
     public function check(CheckableInterface $checkable)
     {

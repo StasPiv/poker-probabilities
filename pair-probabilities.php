@@ -11,7 +11,7 @@ use PokerProbabilities\CardRank;
 use PokerProbabilities\Checker\BothRanksOrPairChecker;
 use PokerProbabilities\Checker\BothRanksRankChecker;
 use PokerProbabilities\Checker\OneOfRanksRankChecker;
-use PokerProbabilities\Checker\RankChecker;
+use PokerProbabilities\Checker\PairChecker;
 use PokerProbabilities\Checker\SpecificRankChecker;
 use PokerProbabilities\Checker\SuitChecker;
 use PokerProbabilities\Generator;
@@ -20,7 +20,7 @@ require_once 'vendor/autoload.php';
 
 $deck = new CardDeck();
 
-$pairChecker = new RankChecker();
+$pairChecker = new PairChecker();
 $acesChecker = new SpecificRankChecker(CardRank::ACE);
 $kingOrAceOrQueenChecker = new OneOfRanksRankChecker([CardRank::ACE, CardRank::KING, CardRank::QUEEN]);
 $kingAndAceChecker = new BothRanksRankChecker([CardRank::ACE, CardRank::KING]);

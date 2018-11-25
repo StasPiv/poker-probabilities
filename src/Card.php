@@ -26,14 +26,21 @@ class Card
     protected $suit;
 
     /**
-     * Card constructor.
-     * @param $rank
-     * @param $suit
+     * @var bool
      */
-    public function __construct($rank, $suit)
+    protected $bolded = false;
+
+    /**
+     * Card constructor.
+     * @param int $rank
+     * @param int $suit
+     * @param bool $bolded
+     */
+    public function __construct(int $rank, int $suit, bool $bolded = false)
     {
         $this->rank = $rank;
         $this->suit = $suit;
+        $this->bolded = $bolded;
     }
 
     /**
@@ -55,5 +62,24 @@ class Card
     public function isEqual(Card $card)
     {
         return $card->getSuit() === $this->getSuit() && $card->getRank() === $this->getRank();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBolded(): bool
+    {
+        return $this->bolded;
+    }
+
+    /**
+     * @param bool $bolded
+     * @return Card
+     */
+    public function setBolded(bool $bolded): self
+    {
+        $this->bolded = $bolded;
+
+        return $this;
     }
 }

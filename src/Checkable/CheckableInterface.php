@@ -16,4 +16,10 @@ interface CheckableInterface
      * @return Card[]|array
      */
     public function getCards(): array;
+
+    /**
+     * @param array $cards
+     * @return mixed
+     */
+    public function setCards(array $cards);
 }

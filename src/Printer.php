@@ -9,6 +9,8 @@
 namespace PokerProbabilities;
 
 
+use PokerProbabilities\Checkable\CheckableInterface;
+
 class Printer
 {
     static public function printRank(int $rank)
@@ -131,6 +133,25 @@ class Printer
                     return self::printShortCard($card);
                 },
                 $cards
+            )
+        );
+    }
+
+    /**
+     * @param CheckableInterface $checkable
+     * @return array
+     */
+    static public function printCheckable(CheckableInterface $checkable)
+    {
+        return implode(
+            ' ',
+            array_map(
+                function (Card $card) {
+                    return $card->isBolded() ? '<' . strtoupper(self::printShortCard($card)) . '>' :
+                        self::printShortCard
+                    ($card);
+                },
+                $checkable->getCards()
             )
         );
     }

@@ -10,12 +10,23 @@ namespace PokerProbabilities\Checkable;
 
 use PokerProbabilities\Card;
 
-class RandomPair implements CheckableInterface
+class Pair implements CheckableInterface
 {
     /**
      * @var Card[]|array
      */
     protected $cards;
+
+    /**
+     * @param array|Card[] $cards
+     * @return Pair
+     */
+    public function setCards($cards)
+    {
+        $this->cards = $cards;
+
+        return $this;
+    }
 
     /**
      * RandomPair constructor.
@@ -24,12 +35,12 @@ class RandomPair implements CheckableInterface
     public function __construct($cards)
     {
         if (count($cards) !== 2) {
-            throw new \RuntimeException('Random pair should contain two cards');
+            throw new \RuntimeException('Pair should contain two cards');
         }
 
         foreach ($cards as $card) {
             if (!$card instanceof Card) {
-                throw new \RuntimeException('Each card in random pair should be instance of Card');
+                throw new \RuntimeException('Each card in pair should be instance of Card');
             }
         }
 

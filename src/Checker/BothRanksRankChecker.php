@@ -11,7 +11,7 @@ namespace PokerProbabilities\Checker;
 
 use PokerProbabilities\CardRank;
 
-class BothRanksRankChecker extends RankChecker
+class BothRanksRankChecker extends PairChecker
 {
     /**
      * @var array

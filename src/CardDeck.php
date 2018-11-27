@@ -8,8 +8,10 @@
 
 namespace PokerProbabilities;
 
+use PokerProbabilities\Checkable\CheckableInterface;
+use PokerProbabilities\Checkable\Flop;
 
-class CardDeck
+class CardDeck implements CheckableInterface
 {
     /**
      * @var Card[]|array
@@ -63,7 +65,14 @@ class CardDeck
 
     public function getRandomCard(): Card
     {
-        $keys = array_keys($this->cards);
+        $keys = array_keys(
+            array_filter(
+                $this->cards,
+                function (Card $card) {
+                    return !$card->isRemoved();
+                }
+            )
+        );
 
         $index = $keys[mt_rand(0, count($keys) - 1)];
         $card = $this->cards[$index];
@@ -74,7 +83,78 @@ class CardDeck
 
     public function removeCardByIndex(int $index)
     {
-        unset($this->cards[$index]);
+        $this->cards[$index]->setRemoved(true);
     }
 
+    public function restoreCardByIndex(int $index)
+    {
+        $this->cards[$index]->setRemoved(false);
+    }
+
+    public function restoreCardByString(string $cardString)
+    {
+        $this->restoreCard(CardFactory::createCard($cardString));
+    }
+
+    public function removeCardByString(string $cardString)
+    {
+        $this->removeCard(CardFactory::createCard($cardString));
+    }
+
+    public function removeCards(CheckableInterface $checkable)
+    {
+        foreach ($checkable->getCards() as $card) {
+            $this->removeCard($card);
+        }
+    }
+
+    public function restoreCards(CheckableInterface $checkable)
+    {
+        foreach ($checkable->getCards() as $card) {
+            $this->restoreCard($card);
+        }
+    }
+
+    public function removeCard(Card $neededCard)
+    {
+        $index = $this->findCardIndex($neededCard);
+
+        $this->removeCardByIndex($index);
+    }
+
+    public function restoreCard(Card $neededCard)
+    {
+        $index = $this->findCardIndex($neededCard);
+
+        $this->restoreCardByIndex($index);
+    }
+
+    /**
+     * @param array|Card[] $cards
+     * @return CardDeck
+     */
+    public function setCards($cards)
+    {
+        $this->cards = $cards;
+
+        return $this;
+    }
+
+    /**
+     * @param Card $neededCard
+     * @return int|null|string
+     */
+    private function findCardIndex(Card $neededCard)
+    {
+        $filteredCards = array_filter(
+            $this->cards,
+            function (Card $card) use ($neededCard) {
+                return $neededCard->isEqual($card);
+            }
+        );
+
+        $index = key($filteredCards);
+
+        return $index;
+    }
 }

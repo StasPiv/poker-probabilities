@@ -10,26 +10,29 @@ namespace PokerProbabilities\Checker;
 
 
 use PokerProbabilities\Checkable\FiveCardsInterface;
+use PokerProbabilities\PokerCombination;
 
 class CheckerFactory
 {
     public static function createCheckerForFiveCards(string $type, FiveCardsInterface $fiveCards) {
         switch ($type) {
-            case 'pair':
+            case PokerCombination::KICKER:
+                return new KickerChecker($fiveCards);
+            case PokerCombination::PAIR:
                 return new OnePairChecker($fiveCards);
-            case 'two pairs':
+            case PokerCombination::TWO_PAIRS:
                 return new TwoPairChecker($fiveCards);
-            case 'trips':
+            case PokerCombination::TRIPS:
                 return new TripsChecker($fiveCards);
-            case 'street':
+            case PokerCombination::STREET:
                 return new StreetChecker($fiveCards);
-            case 'flash':
+            case PokerCombination::FLASH:
                 return new FlashChecker($fiveCards);
-            case 'full house':
+            case PokerCombination::FULL_HOUSE:
                 return new FullHouseChecker($fiveCards);
-            case 'kare':
+            case PokerCombination::KARE:
                 return new KareChecker($fiveCards);
-            case 'street flash':
+            case PokerCombination::STREET_FLASH:
                 return new StreetFlashChecker($fiveCards);
             default:
                 throw new \RuntimeException('Unknown checker type: ' . $type);

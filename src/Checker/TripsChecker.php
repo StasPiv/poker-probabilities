@@ -11,6 +11,7 @@ namespace PokerProbabilities\Checker;
 use PokerProbabilities\CardRank;
 use PokerProbabilities\Checkable\CheckableInterface;
 use PokerProbabilities\Checkable\FiveCardsInterface;
+use PokerProbabilities\PokerCombination;
 
 class TripsChecker implements FiveCardsCheckerInterface
 {
@@ -24,6 +25,11 @@ class TripsChecker implements FiveCardsCheckerInterface
     protected $checked = false;
 
     protected $tripsWeights = [];
+
+    public function getName(): string
+    {
+        return PokerCombination::TRIPS;
+    }
 
     /**
      * OnePairChecker constructor.

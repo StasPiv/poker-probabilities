@@ -21,4 +21,6 @@ interface FiveCardsCheckerInterface
     public function getFiveCards(): FiveCardsInterface;
 
     public function getWeight(): int;
+
+    public function getName(): string;
 }

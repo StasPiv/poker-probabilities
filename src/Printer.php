@@ -97,13 +97,21 @@ class Printer
         }
     }
 
-    static public function printCard(Card $card)
+    static public function printCard(Card $card, bool $ignoreRemoved = false)
     {
+        if ($card->isRemoved() && !$ignoreRemoved) {
+            return self::printRank($card->getRank()) . ' of ' . self::printSuit($card->getSuit()) . ' (removed)';
+        }
+
         return self::printRank($card->getRank()) . ' of ' . self::printSuit($card->getSuit());
     }
 
-    static public function printShortCard(Card $card)
+    static public function printShortCard(Card $card, bool $ignoreRemoved = false)
     {
+        if ($card->isRemoved() && !$ignoreRemoved) {
+            return self::printShortRank($card->getRank()) . self::printShortSuit($card->getSuit()) . '(R)';
+        }
+
         return self::printShortRank($card->getRank()) . self::printShortSuit($card->getSuit());
     }
 

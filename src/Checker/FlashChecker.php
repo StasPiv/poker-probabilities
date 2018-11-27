@@ -11,6 +11,7 @@ namespace PokerProbabilities\Checker;
 use PokerProbabilities\Card;
 use PokerProbabilities\CardRank;
 use PokerProbabilities\Checkable\FiveCardsInterface;
+use PokerProbabilities\PokerCombination;
 use PokerProbabilities\Printer;
 
 class FlashChecker implements FiveCardsCheckerInterface
@@ -27,6 +28,11 @@ class FlashChecker implements FiveCardsCheckerInterface
     protected $tripsWeights = [];
 
     protected $ranksSum = 0;
+
+    public function getName(): string
+    {
+        return PokerCombination::FLASH;
+    }
 
     /**
      * OnePairChecker constructor.
@@ -132,5 +138,10 @@ class FlashChecker implements FiveCardsCheckerInterface
         }
 
         return 0;
+    }
+
+    public function initKickerWeight(): void
+    {
+        $this->fiveCards->setKickerWeight(0);
     }
 }

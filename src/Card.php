@@ -31,6 +31,11 @@ class Card
     protected $bolded = false;
 
     /**
+     * @var bool
+     */
+    protected $removed = false;
+
+    /**
      * Card constructor.
      * @param int $rank
      * @param int $suit
@@ -79,6 +84,25 @@ class Card
     public function setBolded(bool $bolded): self
     {
         $this->bolded = $bolded;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRemoved(): bool
+    {
+        return $this->removed;
+    }
+
+    /**
+     * @param bool $removed
+     * @return Card
+     */
+    public function setRemoved(bool $removed): self
+    {
+        $this->removed = $removed;
 
         return $this;
     }

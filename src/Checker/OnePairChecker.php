@@ -8,9 +8,12 @@
 
 namespace PokerProbabilities\Checker;
 
+use PokerProbabilities\CardFactory;
 use PokerProbabilities\CardRank;
+use PokerProbabilities\Checkable\CardCollection;
 use PokerProbabilities\Checkable\CheckableInterface;
 use PokerProbabilities\Checkable\FiveCardsInterface;
+use PokerProbabilities\PokerCombination;
 
 class OnePairChecker implements FiveCardsCheckerInterface
 {
@@ -24,6 +27,11 @@ class OnePairChecker implements FiveCardsCheckerInterface
     protected $checked = false;
 
     protected $pairWeights = [];
+
+    public function getName(): string
+    {
+        return PokerCombination::PAIR;
+    }
 
     /**
      * OnePairChecker constructor.

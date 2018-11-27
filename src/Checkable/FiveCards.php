@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: stas
- * Date: 24.11.18
- * Time: 21:13
+ * Date: 26.11.18
+ * Time: 16:43
  */
 
 namespace PokerProbabilities\Checkable;
@@ -11,13 +11,8 @@ namespace PokerProbabilities\Checkable;
 
 use PokerProbabilities\Card;
 
-class PairAndFlop implements FiveCardsInterface
+class FiveCards implements FiveCardsInterface
 {
-    /**
-     * @var Card[]|array
-     */
-    protected $cards;
-
     /**
      * @var int
      */
@@ -27,6 +22,11 @@ class PairAndFlop implements FiveCardsInterface
      * @var int
      */
     protected $baseWeight;
+
+    /**
+     * @var Card[]|array
+     */
+    protected $cards;
 
     /**
      * @var string
@@ -39,26 +39,13 @@ class PairAndFlop implements FiveCardsInterface
     protected $combination = '';
 
     /**
+     * FiveCards constructor.
      * @param array|Card[] $cards
-     * @return PairAndFlop
      */
-    public function setCards($cards)
+    public function __construct($cards)
     {
         $this->cards = $cards;
-
-        return $this;
     }
-
-    /**
-     * PairAndFlop constructor.
-     * @param Pair $pair
-     * @param Flop $flop
-     */
-    public function __construct(Pair $pair, Flop $flop)
-    {
-        $this->cards = array_merge($pair->getCards(), $flop->getCards());
-    }
-
 
     /**
      * @return array|Card[]
@@ -66,6 +53,17 @@ class PairAndFlop implements FiveCardsInterface
     public function getCards(): array
     {
         return $this->cards;
+    }
+
+    /**
+     * @param array|Card[] $cards
+     * @return FiveCards
+     */
+    public function setCards($cards)
+    {
+        $this->cards = $cards;
+
+        return $this;
     }
 
     /**
@@ -78,7 +76,7 @@ class PairAndFlop implements FiveCardsInterface
 
     /**
      * @param int $kickerWeight
-     * @return PairAndFlop
+     * @return FiveCards
      */
     public function setKickerWeight(int $kickerWeight): self
     {
@@ -97,7 +95,7 @@ class PairAndFlop implements FiveCardsInterface
 
     /**
      * @param int $baseWeight
-     * @return PairAndFlop
+     * @return FiveCards
      */
     public function setBaseWeight(int $baseWeight): self
     {
@@ -116,7 +114,7 @@ class PairAndFlop implements FiveCardsInterface
 
     /**
      * @param string $result
-     * @return PairAndFlop
+     * @return FiveCards
      */
     public function setResult(string $result): self
     {
@@ -135,7 +133,7 @@ class PairAndFlop implements FiveCardsInterface
 
     /**
      * @param string $combination
-     * @return PairAndFlop
+     * @return FiveCards
      */
     public function setCombination(string $combination): self
     {
@@ -143,4 +141,5 @@ class PairAndFlop implements FiveCardsInterface
 
         return $this;
     }
+
 }

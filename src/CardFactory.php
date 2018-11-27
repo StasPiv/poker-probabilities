@@ -63,12 +63,16 @@ class CardFactory
     {
         switch ($rankString) {
             case 'A':
+            case CardRank::ACE:
                 return CardRank::ACE;
             case 'K':
+            case CardRank::KING:
                 return CardRank::KING;
             case 'Q':
+            case CardRank::QUEEN:
                 return CardRank::QUEEN;
             case 'J':
+            case CardRank::JACK:
                 return CardRank::JACK;
             case '2':
             case '3':

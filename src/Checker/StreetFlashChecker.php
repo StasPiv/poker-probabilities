@@ -11,6 +11,7 @@ namespace PokerProbabilities\Checker;
 use PokerProbabilities\Card;
 use PokerProbabilities\CardRank;
 use PokerProbabilities\Checkable\FiveCardsInterface;
+use PokerProbabilities\PokerCombination;
 
 class StreetFlashChecker implements FiveCardsCheckerInterface
 {
@@ -26,6 +27,11 @@ class StreetFlashChecker implements FiveCardsCheckerInterface
     protected $tripsWeights = [];
 
     protected $maxRank = 0;
+
+    public function getName(): string
+    {
+        return PokerCombination::STREET_FLASH;
+    }
 
     /**
      * OnePairChecker constructor.

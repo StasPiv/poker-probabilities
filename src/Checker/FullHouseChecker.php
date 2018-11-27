@@ -11,6 +11,7 @@ namespace PokerProbabilities\Checker;
 use PokerProbabilities\CardRank;
 use PokerProbabilities\Checkable\CheckableInterface;
 use PokerProbabilities\Checkable\FiveCardsInterface;
+use PokerProbabilities\PokerCombination;
 
 class FullHouseChecker implements FiveCardsCheckerInterface
 {
@@ -26,6 +27,11 @@ class FullHouseChecker implements FiveCardsCheckerInterface
     protected $tripsWeights = [];
     
     protected $pairWeights = [];
+
+    public function getName(): string
+    {
+        return PokerCombination::FULL_HOUSE;
+    }
 
     /**
      * OnePairChecker constructor.
